@@ -7,13 +7,13 @@ A simple plugin to manually register projects in Neovim.
 ### ✨ Features
 
 - **Manual Registration**: Only tracks the projects you explicitly add. No magic auto-discovery that clutters your workspace.
-- **Easy Switching**: Switch your working directory (`cwd`) to a project instantly.
+- **Easy Switching**: Switch your working directory (`cwd`) to a project instantly and restart your Neovim session.
 - **Persisted Storage**: Saves projects into a `project_registry.json` file in your Neovim data directory.
 - **Sorted by Recent**: Projects are automatically sorted so the most recently accessed projects appear at the top.
 
 ### ⚡️ Requirements
 
-- Neovim >= 0.8.0
+- Neovim >= 0.10.0
 
 ### 📦 Installation
 
