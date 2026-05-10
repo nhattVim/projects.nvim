@@ -63,6 +63,32 @@ function M.show_projects()
         end,
     }, function(choice)
         if choice then
+            -- Check if directory exists
+            if vim.fn.isdirectory(choice.path) == 0 then
+                vim.notify(
+                    "Project directory no longer exists: " .. choice.path,
+                    vim.log.levels.WARN,
+                    { title = "projects.nvim" }
+                )
+                -- Optionally ask to remove it
+                vim.ui.select({ "Yes", "No" }, {
+                    prompt = "Remove this project from registry?",
+                }, function(remove_choice)
+                    if remove_choice == "Yes" then
+                        local new_projects = {}
+                        for _, p in ipairs(data.projects) do
+                            if p.path ~= choice.path then
+                                table.insert(new_projects, p)
+                            end
+                        end
+                        data.projects = new_projects
+                        db.write_db(data)
+                        vim.notify("Removed project: " .. choice.name, vim.log.levels.INFO, { title = "projects.nvim" })
+                    end
+                end)
+                return
+            end
+
             -- Update last accessed
             for i, p in ipairs(data.projects) do
                 if p.path == choice.path then
